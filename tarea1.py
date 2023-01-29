@@ -74,21 +74,59 @@ def diferenciaListas(listaA, listaB):
 # B
 
 def lectura():
-    cant = int(input())
-    n = int(input())
-    datos = int(input())
+    cases = int(input())
+    for cn_cases in range(0, cases):
+        lista = list(str(input()).split(" "))
+        lista = lista[1::]
+        lista2 = list(str(input()).split(" "))
+        lista2 = lista2[1::]
+
+        print(*diferenciaListas(lista, lista2), sep=',')
+
+
+def diferenciaListas(listaA, listaB):
     aux = []
-    print(cant)
-    print(n)
-    if n == int:
-        
-    print(aux)
+    for i in listaA:
+        if i not in listaB:
+            aux.append(i)
+        elif i in listaB:
+            listaB.remove(i)
+    return aux
+
 
 lectura()
 # Punto 4
-"""
+
+
 def mostrarPrimos(N):
-    
+    is_prim = []
+    is_prim2 = []
+    for i in range(2, N + 1):
+        if is_prime(i):
+            is_prim.append(i)
+    print("Números primos entre 1 y %d:" % N)
+    for n_prim in range(0, len(is_prim)):
+        if n_prim == len(is_prim)-1:
+            print("--> %d" % is_prim[n_prim])
+        else:
+            print("--> %d," % is_prim[n_prim])
+    for i in is_prim:
+        num_string = str(i)
+        sum = 0
+        for j in num_string:
+            sum = sum + int(j)
+        if is_prime(sum):
+            is_prim2.append(i)
+    print("Números entre 1 y", str(N), "con suma de dígitos con valor primo")
+    print(*is_prim2, sep=', ')
+
+
+def is_prime(i):
+    ans = True
+    for r in range(2, i):
+        if i % r == 0:
+            ans = False
+    return ans
+
 
 mostrarPrimos(100)
-"""
