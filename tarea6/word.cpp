@@ -66,3 +66,16 @@ int main(){
     }
     return 0;
 }
+/*
+    
+    La complejidad total del algoritmo en notacion O es de 
+    O(n*n*2l) = O(n^2*l)
+    esto pues recorremos cada palabra en el puzzle (n)(osea, cada caso) para saber el numero 
+    de palabras en el diccionario contenidas. Para esto, recorremos todo el diccionario (n),
+    y para cada pareja puzzle-palabra, recorremos ambas a la vez, lo que demora 2l operaciones.
+
+    como n = 1000 y l = 25, entonces serian maximo 25000000 operaciones = 2.5*10^7, lo cual 
+    se puede realizar en menos de un segundo. (Porque el numero de operaciones promedio que se hacen
+    en un segundo es 5*10^8)
+
+    */
