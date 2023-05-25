@@ -32,7 +32,7 @@ void eliminarPosicionesPila(stack<int>&pil, list<int>&l){
         pil.pop();
         pos++;
     }
-    while(not aux.empty()){
+    while(! aux.empty()){
         pil.push(aux.top());
         aux.pop();
     }
