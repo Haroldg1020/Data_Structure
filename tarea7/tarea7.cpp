@@ -21,67 +21,76 @@ void eliminarPosicionesPila(stack<int>&pil, list<int>&l){
     stack<int>aux;
     int pos = 0;
     /*
+    n1 = tamaño lista
+    n2 = tamaño stack
     La complejidad del siguiente codigo es O(n), porque el numero de iteraciones que se haceb depende del tamaño que tenga la lista y la pila. 
     Es lineal.
     */
-    for(i = l.begin(); i != l.end(); i++){
-        for(pos ; pos < *i; pos++){
-            aux.push(pil.top());
-            pil.pop();
+    for(i = l.begin(); i != l.end(); i++){ // n1
+        for(pos ; pos < *i; pos++){ // n2
+            aux.push(pil.top()); // n2-1
+            pil.pop(); //n2-1
         }
-        pil.pop();
-        pos++;
+        pil.pop(); //n1
+        pos++; //n1
     }
-    while(! aux.empty()){
-        pil.push(aux.top());
-        aux.pop();
+    while(! aux.empty()){ // se recorre mientras aux no este vacio. n2+1
+        pil.push(aux.top()); // n2
+        aux.pop(); // n2
     }
 }
 
+
 void ordenarConMonticulo(vector<int>& vec) {
-    make_heap(vec.begin(), vec.end()); // Convertir el vector en un montículo // make_heap es lineal
-    vector<int>respuesta;
-    while (!vec.empty()) {
-        pop_heap(vec.begin(), vec.end()); // Mover el elemento máximo al final // pop_heap es logaritmico
-        int maxElemento = vec.back(); // Obtener el elemento máximo
+    make_heap(vec.begin(), vec.end()); // n ,Convertir el vector en un montículo // make_heap es lineal
+    vector<int>respuesta; // 1
+    while(! vec.empty()){ // n+1
+        pop_heap(vec.begin(), vec.end()); // n*log(n), Mover el elemento máximo al final y ademas vuelve a armar el arbol con el resto de elementos sin el maximo // pop_heap es logaritmico
+        int maxElemento = vec.back(); // n, Obtener el elemento máximo
         vec.pop_back(); // Eliminar el elemento máximo del montículo
-        respuesta.push_back(maxElemento);
+        respuesta.push_back(maxElemento); //n
     }
-    vec = respuesta;
+    vec = respuesta; // 1
     //reverse(vec.begin(), vec.end()); // de menor a mayor
 
     // Al final la complejidad total del siguiente codigo es n*log(n)
 }
 
+/*
+La complejidad del siguiente codigo es O(n), ya que solo recorremos el tamaño de la cola y este depende de la cantidad de números que tenga.
+*/
 bool verificarOrdenadoCola(queue<int>cola){
-    int variable;
-    bool ansMayor = true;
-    bool ansMenor = true;
-    bool ans;
+    int variable; // 1
+    bool ansMayor = true;// 1
+    bool ansMenor = true;// 1
+    bool ans;// 1
 
-    for(int i = 0; i < cola.size()-1; i++){
-        cola.push(cola.front());
-        variable = cola.front();
-        cola.pop(); 
-        if(variable < cola.front()){
-            ansMayor = false;
+    while(0 < cola.size()-1){ // n
+        cola.push(cola.front()); // n
+        variable = cola.front(); // n
+        cola.pop(); // n
+        if(variable < cola.front()){ // n
+            ansMayor = false; // n
         }
-        if(variable > cola.front()){
-            ansMenor = false;
+        if(variable > cola.front()){ // n
+            ansMenor = false; // n
         }
         
     }
-    return ansMayor or ansMenor;
+    return ansMayor || ansMenor; // 1
 }
 
+/*
+El siguiente código tiene complejidad de O(log2(n)*n), la complejidad del sort esta definida como log2(n)*n y el ciclo for que tenemos en el código se recorre según el tamaño del vector.
+*/
 int obtenerMenorCosto(vector<int>vect1){
-    int total = 0;
-    sort(vect1.begin(), vect1.end());
-    for(int i = 0; i < vect1.size()-1; i++){
-        vect1[i+1] += vect1[i];
-        total += vect1[i+1];
+    int total = 0; // 1
+    sort(vect1.begin(), vect1.end()); // log2(n)*n
+    for(int i = 0; i < vect1.size()-1; i++){ // n
+        vect1[i+1] += vect1[i]; // n-1
+        total += vect1[i+1]; // n-1
     }
-    return total;
+    return total; // 1
 }
 
 void evaluarExpresion(list<char>&lista){
@@ -92,26 +101,27 @@ void evaluarExpresion(list<char>&lista){
     }
 }
 
-
+/*
+El siguiente codigo tiene una complejidad de O(n), esta esta en el ciclo while ya que depende de los datos que tenga la cola. En el ciclo for se itera 27 veces simulando un alfabeto.
+*/
 int verificarRepetidos(queue<char>col){
 
-    vector<bool>m;
-    int cont = 0;
-    for(int i = 0; i < 27; i++){
-        m.push_back(0);
+    vector<bool>m; // 1
+    int cont = 0; // 1
+    for(int i = 0; i < 27; i++){ // 27+1
+        m.push_back(0); // 27
     }
-    while(col.empty() != false){
-        col.front();
-        if(m[col.front() - 'a'] == true){
-            cont++;
+    while(col.empty() == false){ // n
+        if(m[col.front() - 'a'] == true){ // n        
+            cont++; // n
         }
-        else{
-            m[col.front() - 'a'] = true;
+        else{ // n
+            m[col.front() - 'a'] = true; // n
         } 
-        col.pop();
+        col.pop(); // n
     }
-    return cont;
-}
+    return cont; // 1
+} 
 
 
 map<char, vector<int> > obtenerPosicionesOcurrencias(string cad){
