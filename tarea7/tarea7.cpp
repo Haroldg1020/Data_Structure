@@ -63,7 +63,6 @@ bool verificarOrdenadoCola(queue<int>cola){
     int variable; // 1
     bool ansMayor = true;// 1
     bool ansMenor = true;// 1
-    bool ans;// 1
 
     while(0 < cola.size()-1){ // n
         cola.push(cola.front()); // n
