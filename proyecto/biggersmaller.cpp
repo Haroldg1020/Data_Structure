@@ -32,16 +32,39 @@ class BigInteger{
 
 
 };
-
+/*
+Función esNegativo
+Entrada: Ninguna.
+Salida: Un valor booleano.
+Descripción: Esta función devuelve un valor booleano que indica si el objeto BigInteger actual es negativo o no.
+*/
 bool BigInteger::esNegativo()const{
     return negativo; // 1
 }
+/*
+Función info
+Entrada: Un valor entero llamado "valor".
+Salida: Un valor entero.
+Descripción: Esta función devuelve el valor almacenado en la posición indicada del arreglo de dígitos del objeto BigInteger.
+*/
 int BigInteger::info(int valor)const{
     return numero[valor];
 }
+/*
+Función tamanoN
+Entrada: Ninguna.
+Salida: Un valor entero.
+Descripción: Esta función devuelve el tamaño del número almacenado en el objeto BigInteger, es decir, la cantidad de dígitos que lo componen.
+*/
 int BigInteger::tamanoN()const{
     return numero.size();
 }
+/*
+Constructor BigInteger
+Entrada: Un valor entero largo (long long).
+Salida: Ninguna.
+Descripción: Este constructor crea un objeto BigInteger a partir del valor entero largo proporcionado. El valor se almacena en forma de dígitos individuales dentro del objeto BigInteger.
+*/
 BigInteger::BigInteger(long long valor){
 	numero.clear();
     int numeroR;
@@ -56,10 +79,14 @@ BigInteger::BigInteger(long long valor){
     for(int i = aux.size()-1; i >= 0; i--){
         numeroR = aux[i] - '0';
         numero.push_back(numeroR);
-    }
-
-    
+    }  
 }
+/*
+Constructor BigInteger
+Entrada: Una cadena de caracteres (string).
+Salida: Ninguna.
+Descripción: Este constructor crea un objeto BigInteger a partir de una cadena de caracteres proporcionada. La cadena se interpreta como un número y se almacena en forma de dígitos individuales dentro del objeto BigInteger.
+*/
 BigInteger::BigInteger(const string &cadena){
 	numero.clear();
     int numeroR = 1;
@@ -74,6 +101,12 @@ BigInteger::BigInteger(const string &cadena){
     }
     if(!negativo)numero.push_back(cadena[0]-'0');
 }
+/*
+Constructor BigInteger
+Entrada: Un objeto BigInteger (referencia constante).
+Salida: Ninguna.
+Descripción: Este constructor crea un nuevo objeto BigInteger a partir de otro objeto BigInteger proporcionado. El nuevo objeto es una copia exacta del objeto de entrada.
+*/
 BigInteger::BigInteger(const BigInteger &argumento){
 	numero.clear();
     negativo = argumento.esNegativo();
@@ -82,6 +115,12 @@ BigInteger::BigInteger(const BigInteger &argumento){
     }
 
 }
+/*
+Función toString
+Entrada: Ninguna.
+Salida: Una cadena de caracteres (string).
+Descripción: Esta función convierte el objeto BigInteger en una cadena de caracteres que representa su valor.
+*/
 string BigInteger::toString(){
     string s ="";
     if(negativo)s.push_back('-');
@@ -90,6 +129,12 @@ string BigInteger::toString(){
     }
     return s;
 }
+/*
+Función operator==
+Entrada: Un objeto BigInteger llamado "valor".
+Salida: Un valor booleano que indica si el objeto BigInteger es igual al "valor" pasado como parámetro.
+Descripción: Esta función compara el objeto BigInteger actual con otro objeto BigInteger llamado "valor" para determinar si son iguales. Devuelve true si son iguales y false en caso contrario.
+*/
 bool BigInteger::operator==(const BigInteger valor)const{ // O(n).
     bool ans = true;
     if(numero.size() != valor.tamanoN() || valor.esNegativo() != negativo){ // 1
@@ -104,7 +149,12 @@ bool BigInteger::operator==(const BigInteger valor)const{ // O(n).
     }
     return ans; 
 }
-
+/*
+Función operator<
+Entrada: Un objeto BigInteger llamado "valor".
+Salida: Un valor booleano que indica si el objeto BigInteger es menor que el "valor" pasado como parámetro.
+Descripción: Esta función compara el objeto BigInteger actual con otro objeto BigInteger llamado "valor" para determinar si el primero es menor que el segundo. Devuelve true si el objeto actual es menor que "valor" y false en caso contrario.
+*/
 bool BigInteger::operator<(const BigInteger valor)const{
     bool ans = false;
     if(numero.size() < valor.tamanoN()){

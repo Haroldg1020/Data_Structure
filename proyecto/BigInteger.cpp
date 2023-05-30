@@ -17,17 +17,32 @@ bool BigInteger::esNegativo()const{
     return negativo; // 1 
 }
 
-
-
+/*
+Función invertir
+Entrada: Ninguna.
+Salida: Nada.
+Descripción: Esta función invierte el signo del BigInteger, es decir, cambia de positivo a negativo o viceversa.
+*/
 void BigInteger::invertir(){
 	negativo = !negativo; // 1
 }
+/*
+Función absoluteValue
+Entrada: Ninguna.
+Salida: Un nuevo BigInteger que representa el valor absoluto del BigInteger actual.
+Descripción: Esta función crea y devuelve un nuevo BigInteger que tiene el mismo valor absoluto que el BigInteger actual.
+*/
 BigInteger BigInteger::absoluteValue()const{
 	BigInteger ret = *this; // n
 	if(ret.esNegativo())ret.invertir(); // 1
 	return ret; // 1
 }
-
+/*
+Función operator==
+Entrada: Un objeto BigInteger llamado "valor".
+Salida: Un valor booleano que indica si el objeto BigInteger es igual al "valor" pasado como parámetro.
+Descripción: Esta función compara el objeto BigInteger actual con otro objeto BigInteger llamado "valor" para determinar si son iguales. Devuelve true si son iguales y false en caso contrario.
+*/
 bool BigInteger::operator==(const BigInteger valor)const{ // O(n).
     bool ans = true; // 1
     if(numero.size() != valor.tamanoN() || valor.esNegativo() != negativo){ // 1
@@ -42,7 +57,12 @@ bool BigInteger::operator==(const BigInteger valor)const{ // O(n).
     }
     return ans; // 1
 }
-
+/*
+Función operator<
+Entrada: Un objeto BigInteger llamado "valor".
+Salida: Un valor booleano que indica si el objeto BigInteger es menor que el "valor" pasado como parámetro.
+Descripción: Esta función compara el objeto BigInteger actual con otro objeto BigInteger llamado "valor" para determinar si el primero es menor que el segundo. Devuelve true si el objeto actual es menor que "valor" y false en caso contrario.
+*/
 bool BigInteger::operator<(const BigInteger valor)const{
     bool ans = false; // 1
     if(numero.size() < valor.tamanoN()){ //1
@@ -89,7 +109,12 @@ bool BigInteger::operator<(const BigInteger valor)const{
     }
     return ans; //1
 }
-
+/*
+Función operator<=
+Entrada: Un objeto BigInteger llamado "valor".
+Salida: Un valor booleano que indica si el objeto BigInteger es menor o igual que el "valor" pasado como parámetro.
+Descripción: Esta función compara el objeto BigInteger actual con otro objeto BigInteger llamado "valor" para determinar si el primero es menor o igual que el segundo. Devuelve true si el objeto actual es menor o igual que "valor" y false en caso contrario.
+*/
 bool BigInteger::operator<=(const BigInteger valor)const{
     bool ans; //1
     if(*this < valor || *this == valor){ //1
@@ -100,13 +125,22 @@ bool BigInteger::operator<=(const BigInteger valor)const{
     }
     return ans; //1
 }
-
-
-
-int BigInteger::info(int valor)const{
+/*
+Función info
+Entrada: Un valor entero llamado "valor".
+Salida: Un valor entero.
+Descripción: Esta función devuelve el valor almacenado en la posición indicada del arreglo de dígitos del objeto BigInteger.
+*/
+int BigInteger::info(int valor)const{ //O(1)
     return numero[valor]; // 1
 }
-int BigInteger::tamanoN()const{
+/*
+Función tamanoN
+Entrada: Ninguna.
+Salida: Un valor entero.
+Descripción: Esta función devuelve el tamaño del número almacenado en el objeto BigInteger, es decir, la cantidad de dígitos que lo componen.
+*/
+int BigInteger::tamanoN()const{ //O(1)
     return numero.size(); // 1
 }
 /*
@@ -157,7 +191,6 @@ Entrada: Un objeto BigInteger (referencia constante).
 Salida: Ninguna.
 Descripción: Este constructor crea un nuevo objeto BigInteger a partir de otro objeto BigInteger proporcionado. El nuevo objeto es una copia exacta del objeto de entrada.
 */
-
 BigInteger::BigInteger(const BigInteger &argumento){ // O(n)
 	numero.clear(); // 1
     negativo = argumento.esNegativo(); // 1
@@ -165,7 +198,12 @@ BigInteger::BigInteger(const BigInteger &argumento){ // O(n)
         numero.push_back(argumento.info(i)); // n
     }
 }
-
+/*
+Función add
+Entrada: Un objeto BigInteger llamado "valor".
+Salida: Nada.
+Descripción: Esta función suma el valor pasado como argumento al objeto BigInteger actual.
+*/
 void BigInteger::add(BigInteger valor){ // O(n)
 	/*Suma al objeto actual el valor que le pasan como argumento:
 	 * Si son de igual signo:
@@ -228,7 +266,12 @@ void BigInteger::add(BigInteger valor){ // O(n)
 		
 	}
 }
-
+/*
+Función product
+Entrada: Un objeto BigInteger llamado "valor".
+Salida: Nada.
+Descripción: Esta función realiza la multiplicación del objeto BigInteger actual por el valor pasado como argumento.
+*/
 void BigInteger::product(BigInteger valor){ // O(n^2)
 	if(*this == BigInteger(0) or valor == BigInteger(0)){ // Si alguno es 0, el resultado da 0.
 		*this = BigInteger(0);
@@ -254,8 +297,12 @@ void BigInteger::product(BigInteger valor){ // O(n^2)
 		negativo = (valor.esNegativo() != negativo); // Si los signos son diferentes da negativo.
 	}
 }
-
-
+/*
+Función substract
+Entrada: Un objeto BigInteger llamado "valor".
+Salida: Nada.
+Descripción: Esta función realiza la resta del objeto BigInteger actual con el valor pasado como argumento.
+*/
 void BigInteger::substract(BigInteger valor){ // O(n).
 	if(valor.esNegativo()){ // 10-(-20) = 10 + 20
 		this->add(valor.absoluteValue()); // Se llama a la funcion suma, pues la resta con un negativo es una suma.O(n).
@@ -299,8 +346,12 @@ void BigInteger::substract(BigInteger valor){ // O(n).
 		}
 	}
 }
-
-
+/*
+Función quotient
+Entrada: Un objeto BigInteger llamado "valor".
+Salida: Nada.
+Descripción: Esta función realiza la división del objeto BigInteger actual entre el valor pasado como argumento
+*/
 void BigInteger::quotient(BigInteger valor){ // O(n*10) = O(n^2).
     BigInteger t = 0;
     bool flag = true;
@@ -355,7 +406,12 @@ void BigInteger::quotient(BigInteger valor){ // O(n*10) = O(n^2).
         negativo = neg; // es negativo si los signos son diferentes.
     }
 }
-
+/*
+Función remainder
+Entrada: Un objeto BigInteger valor
+Salida: Nada.
+Descripción: Calcula el residuo de la división entre el objeto BigInteger actual y un valor dado.
+*/
 void BigInteger::remainder(BigInteger valor){ // O(n^2).
 	/*
 	 * El algoritmo es exactamente el mismo al de la division, pero el resultado es lo que sobro en la variable t.
@@ -421,7 +477,6 @@ Función expo
 Entrada: Dos objetos BigInteger (base y valor).
 Salida: Un objeto BigInteger.
 Descripción: Esta función realiza la operación de exponente para calcular la potencia de la base elevada al valor (exponente) proporcionado. Devuelve el resultado como un objeto BigInteger.
-
 */
 BigInteger BigInteger::expo(BigInteger base, BigInteger valor){ // log2(n)*n^2.
 	/*
@@ -457,31 +512,56 @@ void BigInteger::pow(BigInteger valor){ // O(log2(n)*n^2).
 		negativo = sign;
 	}
 }
-
+/*
+Función operator+
+Entrada: Un objeto BigInteger valor. 
+Salida: Un nuevo objeto BigInteger que representa la suma de los dos objetos.
+Descripción: Realiza la suma de dos objetos BigInteger.
+*/
 BigInteger BigInteger::operator+(BigInteger valor){
     BigInteger respuesta = *this; // 1
     respuesta.add(valor); // 1
     return respuesta; // 1
 }
-
+/*
+Función operator-
+Entrada: Un objeto BigInteger valor.
+Salida: Un nuevo objeto BigInteger que representa la resta de los dos objetos.
+Descripción: Realiza la resta de dos objetos BigInteger.
+*/
 BigInteger BigInteger::operator-(BigInteger valor){
     BigInteger respuesta = *this; // 1
     respuesta.substract(valor); // 1
     return respuesta; // 1
 }
-
+/*
+Función operator*
+Entrada: Un objeto BigInteger valor.
+Salida: Un nuevo objeto BigInteger que representa el resultado de la multiplicación.
+Descripción: Realiza la multiplicación de dos objetos BigInteger.
+*/
 BigInteger BigInteger::operator*(BigInteger valor){
     BigInteger respuesta = *this; // 1
     respuesta.product(valor); // 1
     return respuesta; // 1
 }
-
+/*
+Función operator/
+Entrada: Un objeto BigInteger valor.
+Salida: Un nuevo objeto BigInteger que representa el resultado de la división.
+Descripción: Realiza la división de dos objetos BigInteger.
+*/
 BigInteger BigInteger::operator/(BigInteger valor){
     BigInteger respuesta = *this; // 1
     respuesta.quotient(valor); // 1
     return respuesta; // 1
 }
-
+/*
+Función operator%
+Entrada: Un objeto BigInteger valor.
+Salida: Un nuevo objeto BigInteger que representa el resultado del cálculo del módulo.
+Descripción: Realiza la operación de módulo (resto) entre dos objetos BigInteger.
+*/
 BigInteger BigInteger::operator%(BigInteger valor){
     BigInteger respuesta = *this; // 1
     respuesta.remainder(valor); // 1
